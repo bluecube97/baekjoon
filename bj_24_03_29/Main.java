@@ -1,8 +1,5 @@
 package bj_24_03_29;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Scanner;
 
 public class Main {
@@ -26,33 +23,40 @@ public class Main {
         heapsort(numArr);
 
         for (int i = 0; i < M; i++) {
-            binarySearch(numArr, testCaseArr[i], numArr.length);
+            int mid = findDownMid(numArr.length);
+            binarySearch(numArr, testCaseArr[i], mid);
         }
 
     }
 
-    private static void binarySearch(int[] arr, int searchValue, int len) {
-        int mid = findMid(len);
-
-        if (arr[mid] == searchValue){
-            System.out.println(1);
-            return;
-
-        }else if (mid == 1) {
+    private static void binarySearch(int[] arr, int searchValue, int mid) {
+        if (mid < 0 || mid >= arr.length) {
             System.out.println(0);
-            return;
-        }else {
-            mid = findMid(mid);
+        } else if (arr[mid] == searchValue) {
+            System.out.println(1);
+        } else if (arr[mid] > searchValue) {
+            mid = findDownMid(mid);
             binarySearch(arr, searchValue, mid);
-        }
+        } else {
+            mid = findUpMid(mid);
+            binarySearch(arr, searchValue, mid);
 
+        }
     }
 
-    private static int findMid(int num) {
+    private static int findDownMid(int num) {
         if (num % 2 == 0) {
             return num / 2 - 1;
         } else {
             return num / 2;
+        }
+    }
+
+    private static int findUpMid(int num) {
+        if (num % 2 == 0) {
+            return (num * 2) - (num / 2);
+        } else {
+            return num * 2 - (num / 2 + 1);
         }
     }
 
