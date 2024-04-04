@@ -1,22 +1,27 @@
 package bj_24_04_04;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
 
-        int testCase = sc.nextInt();
+        StringTokenizer st;
+
+        int testCase = Integer.parseInt(br.readLine());
         LinkedList<Integer> stack = new LinkedList<>();
 
         for (int i = 0; i < testCase; i++) {
-            String order = sc.next();
+            st = new StringTokenizer(br.readLine(), " ");
 
-            switch (order) {
+            switch (st.nextToken()) {
                 case "push":
-                    int x = sc.nextInt();
+                    int x = Integer.parseInt(st.nextToken());
                     stack.add(x);
                     break;
                 case "pop":
@@ -45,5 +50,6 @@ public class Main {
             }
         }
         System.out.println(sb);
+
     }
 }
