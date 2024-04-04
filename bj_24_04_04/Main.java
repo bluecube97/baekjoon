@@ -1,54 +1,49 @@
 package bj_24_04_04;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        StringBuilder sb = new StringBuilder();
 
         int testCase = sc.nextInt();
-        int[] x = new int[testCase];
-        String[] order = new String[testCase];
-        List<Integer> stack = new ArrayList<>();
+        LinkedList<Integer> stack = new LinkedList<>();
 
         for (int i = 0; i < testCase; i++) {
-            order[i] = sc.next();
-            if (order[i].startsWith("push")) {
-                x[i] = sc.nextInt();
-            }
-        }
+            String order = sc.next();
 
-        for (int i = 0; i < testCase; i++) {
-            switch (order[i]) {
+            switch (order) {
                 case "push":
-                    stack.add(x[i]);
+                    int x = sc.nextInt();
+                    stack.add(x);
                     break;
                 case "pop":
                     if (stack.isEmpty()) {
-                        System.out.println(-1);
+                        sb.append(-1).append("\n");
                     } else {
-                        System.out.println(stack.get(stack.size() - 1));
-                        stack.remove(stack.size() - 1);
+                        sb.append(stack.getLast()).append("\n");
+                        stack.removeLast();
                     }
                     break;
                 case "size":
-                    System.out.println(stack.size());
+                    sb.append(stack.size()).append("\n");
                     break;
                 case "empty":
                     if (stack.isEmpty()) {
-                        System.out.println(1);
-                    } else System.out.println(0);
+                        sb.append(1).append("\n");
+                    } else sb.append(0).append("\n");
                     break;
                 case "top":
                     if (stack.isEmpty()) {
-                        System.out.println(-1);
+                        sb.append(-1).append("\n");
                     } else {
-                        System.out.println(stack.get(stack.size() - 1));
+                        sb.append(stack.getLast()).append("\n");
                     }
                     break;
             }
         }
+        System.out.println(sb);
     }
 }
