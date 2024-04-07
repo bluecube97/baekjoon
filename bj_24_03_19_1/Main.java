@@ -2,6 +2,7 @@ package bj_24_03_19_1;
 
 import java.util.*;
 
+// 재도전 요망
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
