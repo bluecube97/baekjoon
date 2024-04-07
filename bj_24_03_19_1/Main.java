@@ -21,12 +21,12 @@ public class Main {
         }
 
         for (int i = 0; i < ext_cnt; i++) {
-            if (find_idx.get(i).equals(que_list.getFirst())) {
-                que_list.removeFirst();
+            if (find_idx.get(i).equals(que_list.get(0))) {
+                que_list.remove(0);
             } else {
                 for (int j = 0; ; j++) {
-                    if (find_idx.get(i).equals(que_list.getFirst())) {
-                        que_list.removeFirst();
+                    if (find_idx.get(i).equals(que_list.get(0))) {
+                        que_list.remove(0);
                         break;
                     }
                     if (find_idx.get(i).equals(que_list.get(j))) {
@@ -59,7 +59,7 @@ public class Main {
     }
 
     public static List<Integer> calc2(List<Integer> list) {
-        int temp = list.getFirst();
+        int temp = list.get(0);
         for (int i = 0; i < list.size() - 1; i++) {
             list.set(i, list.get(i + 1));
         }
@@ -69,7 +69,7 @@ public class Main {
     }
 
     public static List<Integer> calc3(List<Integer> list) {
-        int temp = list.getLast();
+        int temp = list.get(list.size() - 1);
         for (int i = list.size() - 1; i > 0; i--) {
             list.set(i, list.get(i - 1));
         }
