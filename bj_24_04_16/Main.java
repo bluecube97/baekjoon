@@ -20,20 +20,26 @@ public class Main {
             tree_list.add(Integer.parseInt(st.nextToken()));
         }
 
-        int max = Collections.max(tree_list);
+        int start = 0;
+        int end = Collections.max(tree_list);
 
-        for (int i = max; i >= 0 ; i--) {
-            int need_len = 0;
-            for (int j = 0; j < tree_cnt; j++) {
-                int dist = tree_list.get(j) - i;
-                if (dist > 0) {
-                    need_len += dist;
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            long sum = 0;
+
+            for (int tree : tree_list) {
+                if (tree > mid) {
+                    sum += tree - mid;
                 }
             }
-            if (need_len >= tree_len) {
-                System.out.println(i);
-                break;
+
+            if (sum >= tree_len) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
             }
         }
+
+        System.out.println(end);
     }
 }
