@@ -1,81 +1,53 @@
 package bj_24_03_19_1;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
-// 재도전 요망
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int que_size = sc.nextInt();
-        int ext_cnt = sc.nextInt();
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+
+        LinkedList<Integer> rotate_queue = new LinkedList<>();
+
+        for (int i = 0; i < N; i++) {
+            rotate_queue.add(i + 1);
+        }
+
+        st = new StringTokenizer(br.readLine());
         int result = 0;
-        List<Integer> que_list = new ArrayList<>();
-        List<Integer> find_idx = new ArrayList<>();
 
-        for (int i = 0; i < que_size; i++) {
-            que_list.add(i + 1);
-        }
+        for (int i = 0; i < M; i++) {
+            int idx = Integer.parseInt(st.nextToken());
 
-        for (int i = 0; i < ext_cnt; i++) {
-            find_idx.add(sc.nextInt());
-        }
-
-        for (int i = 0; i < ext_cnt; i++) {
-            if (find_idx.get(i).equals(que_list.get(0))) {
-                que_list.remove(0);
-            } else {
-                for (int j = 0; ; j++) {
-                    if (find_idx.get(i).equals(que_list.get(0))) {
-                        que_list.remove(0);
-                        break;
+            while (true) {
+                if (rotate_queue.getFirst() == idx) {
+                    rotate_queue.removeFirst();
+                    break;
+                } else if (rotate_queue.indexOf(idx) > rotate_queue.size() / 2) {
+                    rotate_queue.addFirst(rotate_queue.getLast());
+                    for (int j = rotate_queue.size() - 1; j > 0; j--) {
+                        rotate_queue.set(j, rotate_queue.get(j - 1));
                     }
-                    if (find_idx.get(i).equals(que_list.get(j))) {
-                        for (int k = 0; k < que_list.size() / 2; k++) {
-                            if (que_list.size() % 2 != 0) {
-                                if (j <= que_list.size() / 2 + 1) {
-                                    calc2(que_list);
-                                    result++;
-                                } else if (j > que_list.size() / 2 + 1){
-                                    calc3(que_list);
-                                    result++;
-                                }
-                            } else {
-                                if (j < que_list.size() / 2) {
-                                    calc2(que_list);
-                                    result++;
-                                } else if (j >= que_list.size() / 2){
-                                    calc3(que_list);
-                                    result++;
-                                }
-                            }
-                        }
+                    rotate_queue.removeFirst();
+                    result++;
+                } else {
+                    rotate_queue.addLast(rotate_queue.getFirst());
+                    for (int j = 0; j < rotate_queue.size() - 1; j++) {
+                        rotate_queue.set(j, rotate_queue.get(j + 1));
                     }
+                    rotate_queue.removeLast();
+                    result++;
                 }
             }
         }
-
         System.out.println(result);
 
     }
 
-    public static List<Integer> calc2(List<Integer> list) {
-        int temp = list.get(0);
-        for (int i = 0; i < list.size() - 1; i++) {
-            list.set(i, list.get(i + 1));
-        }
-        list.set(list.size() - 1, temp);
-
-        return list;
-    }
-
-    public static List<Integer> calc3(List<Integer> list) {
-        int temp = list.get(list.size() - 1);
-        for (int i = list.size() - 1; i > 0; i--) {
-            list.set(i, list.get(i - 1));
-        }
-        list.set(0, temp);
-
-        return list;
-    }
 }
