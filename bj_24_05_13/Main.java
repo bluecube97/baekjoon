@@ -3,8 +3,7 @@ package bj_24_05_13;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -12,34 +11,26 @@ public class Main {
         StringBuilder sb = new StringBuilder();
 
         int testcase = Integer.parseInt(br.readLine());
-        List<Integer> list = new ArrayList<>();
-        List<Integer> numList = new ArrayList<>();
+        int start = 0;
+        Stack<Integer> stack = new Stack<>();
 
         for (int i = 0; i < testcase; i++) {
-            list.add(Integer.parseInt(br.readLine()));
-            numList.add(i + 1);
-        }
-        int j = 0;
-        sb.append('+').append('\n');
+            int value = Integer.parseInt(br.readLine());
 
-        try {
-            for (int i = 0; i < testcase; i++) {
-                while (!numList.isEmpty()) {
-                    if (list.get(i) != numList.get(j)) {
-                        sb.append('+').append('\n');
-                        j++;
-                        continue;
-                    } else {
-                        sb.append('-').append('\n');
-                        numList.remove(j);
-                        j--;
-                        break;
-                    }
+            if (value > start) {
+                for (int j = start + 1; j <= value; j++) {
+                    stack.push(j);
+                    sb.append('+').append('\n');
                 }
+                start = value;
+            } else if (stack.peek() != value) {
+                System.out.println("NO");
+                return;
             }
-            System.out.println(sb);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("NO");
+
+            stack.pop();
+            sb.append('-').append('\n');
         }
+        System.out.println(sb);
     }
 }
