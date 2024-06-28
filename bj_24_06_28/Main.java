@@ -16,14 +16,18 @@ public class Main {
             result += phoneB.charAt(i);
         }
 
-        while (result.length() < 3) {
+        while (result.length() > 2) {
             String tempResult = "";
             for (int i = 0; i < result.length() - 1; i++) {
                 int num = Integer.parseInt(result.substring(i, i + 1)) + Integer.parseInt(result.substring(i + 1, i + 2));
                 if (num >= 10) {
                     num -= 10;
                 }
+                tempResult += String.valueOf(num);
             }
+            result = tempResult;
         }
+
+        System.out.println(result);
     }
 }
