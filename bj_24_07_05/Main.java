@@ -8,37 +8,51 @@ import java.util.StringTokenizer;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
+        int scenarioCnt = 0;
 
-        int o = Integer.parseInt(st.nextToken());
-        int w = Integer.parseInt(st.nextToken());
-        boolean playFlag = true;
-        int statusCnt = 0;
-
-        while (playFlag) {
-            if (w < 0) {
-                System.out.println("RIP");
+        while (true) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int o = Integer.parseInt(st.nextToken());
+            int w = Integer.parseInt(st.nextToken());
+            if (o == 0 && w == 0) {
+                System.out.println(sb.toString());
                 return;
             }
-            st = new StringTokenizer(br.readLine());
-            String command = st.nextToken();
-            int N = Integer.parseInt(st.nextToken());
 
-            switch (command) {
-                case "F":
-                    w += N;
+            scenarioCnt++;
+            boolean isDead = false;
+
+            while (true) {
+                st = new StringTokenizer(br.readLine());
+                String command = st.nextToken();
+                int n = Integer.parseInt(st.nextToken());
+
+                if (command.equals("#") && n == 0) {
                     break;
-                case "E":
-                    w -= N;
-                    break;
-                case "#":
-                    statusCnt++;
-                    if (w > o * 0.5 && w < o * 2) {
-                        System.out.println(statusCnt + " :-)");
-                    } else {
-                        System.out.println(statusCnt + " :-(");
+                }
+
+                if (!isDead) {
+                    if (command.equals("F")) {
+                        w += n;
+                    } else if (command.equals("E")) {
+                        w -= n;
                     }
+
+                    if (w <= 0) {
+                        isDead = true;
+                    }
+                }
+            }
+
+            if (w <= 0) {
+                sb.append(scenarioCnt).append(" RIP\n");
+            } else if (w > o / 2 && w < o * 2) {
+                sb.append(scenarioCnt).append(" :-)\n");
+            } else {
+                sb.append(scenarioCnt).append(" :-(\n");
             }
         }
     }
 }
+
