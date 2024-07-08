@@ -11,12 +11,12 @@ public class Main {
         int arrSize = 4 * (N - 1) + 1;
         boolean[][] star = new boolean[arrSize][arrSize];
 
-        for (int i = 0; i < arrSize; i++) {
-            for (int j = 1; j < arrSize - j; j += 2) {
-                star[j][i] = true;
-                star[arrSize - j][i] = true;
+        for (int i = 0; i < arrSize; i += 2) {
+            for (int j = i; j < arrSize - i; j++) {
                 star[i][j] = true;
-                star[i][arrSize - j] = true;
+                star[arrSize - i - 1][j] = true;
+                star[j][i] = true;
+                star[j][arrSize - i - 1] = true;
             }
         }
 
