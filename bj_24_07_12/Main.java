@@ -21,16 +21,17 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         Day S = new Day(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
+        st = new StringTokenizer(br.readLine());
         Day E = new Day(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
 
         int totalDays = calcTotalDays(S, E);
         int totalMonths = totalDays / 30;
         int totalYears = totalMonths / 12;
 
-        int annual = calcAnnualLeave(totalYears); // 연차
-        int monthly = calcMonthlyLeave(totalMonths); // 월차
+        int annualLeave = calcAnnualLeave(totalYears); // 연차
+        int monthlyLeave = calcMonthlyLeave(totalMonths); // 월차
 
-        System.out.println(annual + " " + monthly);
+        System.out.println(annualLeave + " " + monthlyLeave);
         System.out.println(totalDays + "days");
     }
 
